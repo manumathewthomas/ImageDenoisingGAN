@@ -36,69 +36,25 @@ To run the project you will need:
 
 Once you have all the depenedencies ready, do the folowing:
 
-Download the dataset friends.txt and move it to data/lightweight/. 
+Download the dataset extract it to a folder named 'dataset' (ONLY if you want to train, not needed to run).
 
-Extract the ckpt zip file, you will get a folder 'model-server' with the ckpt file and its associated files. Move this folder to /save. The server will look at the model present on save/model-server/model.ckpt
+Extract the CKPT files to a folder named 'Checkpoints'
 
-To configure the web app
+Run main.py -- python3 main.py
 
-```bash
-export CHATBOT_SECRET_KEY="my-secret-key"
-cd chatbot_website/
-python manage.py makemigrations
-python manage.py migrate
-```
-
-Then, to launch the server locally, use the following commands:
-
-```bash
-cd chatbot_website/
-redis-server &  # Launch Redis in background
-python manage.py runserver 0.0.0.0:8888
-```
 Go to the browser, if you are running it on a server then [ip-address]:8888, if you are on your local machine then localhost:8888
 
 ## Dataset
-For this project we used the [Friends TV Corpus](https://sites.google.com/site/friendstvcorpus/), which was currated by David Ayliffe for his masters thesis to study inter-gender and intra-gender conversation. We formatted the data to get conversation between Joey(a character) and several other characters. There are two reasons for this: 
-  
-  * We were targeting sentences with 5 words. 
-
-  * Joey has the highest number of conversations in the dataset.
+We picked random 40 images from pixar movies, added gaussian noise of different standard deviation, 5 sets of 5 different standard deviation making a total of 1000 images for the training set. For validation we used 10 images completely different from the training set and added gaussian noise. For testing we had both added gaussian images and real noisy images.
 
 ## Hyperparameters
-Some of the hyperparameter we played with are sentence-length, number of hidden-layers, word embedding-size, batch-size and number of iterations. One thing to note here is that there is no logic behind these values, it was purely based on a trial and error approach.
-
-  * We started training with sentences containing more than 20 words, It took more than 16 hours to train and still it was giving gibberish output. Then we reduced it to 10 words, although it was comparitively better we were not happy with the result. Finally we tried with 5 words and we got good outputs.
-  
-  * There are 2 RNN layers(encoder and decoder) and for each layer we put the number of hidden layers to 2048.
-  * Changed the word embedding size to 256.
-  * Batch size to 512.
-  * Number of iteration to 200,000.
+* Number of iterations - 10K
+* Adversarial Loss Factor - 0.5
+* Pixel Loss Factor - 1.0
+* Feature Loss Factor - 1.0
+* Smoothness Loss Factor - 0.0001
 
 ## Results
-
-Below are some screenshots of our chat with the chatbot. It gives preety good results for standard questions as well as some character specific questions. 
-
-Good results
-* The bot replies with the character name when asked : Who are you?
-* Has a flirtatious nature just like Joey! 
-* Understands various greetings like Hi, Hello, Hey and responds accurately. 
-* Is smart enough to respond with a valid number when questioned: What time is it?
-
-<img src="https://github.com/manumathewthomas/Chat-with-Joey/blob/master/Results/Good.png" alt="alt text" width="850" height="500">
-
-Random 
-
-It fails to respond appropriately to some questions.
-Q: What's up?
-A: Kidney Stones!
-
-<img src="https://github.com/manumathewthomas/Chat-with-Joey/blob/master/Results/Random1.png" alt="alt text" width="850" height="500">
-
-<img src="https://github.com/manumathewthomas/Chat-with-Joey/blob/master/Results/Random2.png" alt="alt text" width="850" height="500">
-
-
-
 
  
 
