@@ -1,5 +1,5 @@
 # Denoising with GAN
-[Paper](https://github.com/manumathewthomas/CS523Project3/blob/master/paper.pdf) | [Video](https://www.youtube.com/watch?v=Yh_Bsoe-Qj4)
+[Paper](https://uofi.box.com/shared/static/s16nc93x8j6ctd0ercx9juf5mqmqx4bp.pdf) | [Video](https://www.youtube.com/watch?v=Yh_Bsoe-Qj4)
 
 ## Introduction
 
