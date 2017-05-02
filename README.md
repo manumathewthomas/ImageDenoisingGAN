@@ -26,13 +26,10 @@ We are proposing a neural network based solution for reducing 8-16 hours to a co
 
 To run the project you will need:
  * python 3.5
- * tensorflow (v0.12)
- * django (1.10)
- * channels
- * Redis
- * asgi_redis (at least 1.0)
- * [CKPT FILE](https://uofi.box.com/shared/static/vm0sm79oh037eh2kood6tvnaq010f75h.zip)
- * [Dataset](https://uofi.box.com/shared/static/vz93xppov71cu5ubf14cb65i3pvwgmmw.txt)
+ * tensorflow (v1.1 or v1.0)
+ * PIL
+ * [CKPT FILE](https://uofi.box.com/shared/static/21a5jwdiqpnx24c50cyolwzwycnr3fwe.gz)
+ * [Dataset](https://uofi.box.com/shared/static/gy0t3vgwtlk1933xbtz1zvhlakkdac3n.zip)
 
 ## Running
 
