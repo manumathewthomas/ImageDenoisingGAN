@@ -55,7 +55,8 @@ We picked random 40 images from pixar movies, added gaussian noise of different 
 * Smoothness Loss Factor - 0.0001
 
 ## Results
-
+3D rendering test data:
+<img src="https://github.com/manumathewthomas/CS523Project3y/blob/master/result1.png" alt="alt text" width="850" height="500">
  
 
 ## Improvements
