@@ -6,7 +6,7 @@ Animation movie companies like Pixar and Dreamworks render their 3d scenes using
 
 We are proposing a neural network based solution for reducing 8-16 hours to a couple of seconds using a Generative Adversarial Network. The main idea behind this proposed method is to render using small number of samples per pixel (let say 4 spp or 8 spp instead of 32K spp) and pass the noisy image to our network, which will generate a photorealistic image with high quality. 
 
-# Demo Video
+# Demo Video [Link](https://www.youtube.com/watch?v=Yh_Bsoe-Qj4)
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Yh_Bsoe-Qj4/0.jpg)](https://www.youtube.com/watch?v=Yh_Bsoe-Qj4)
 
