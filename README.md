@@ -1,4 +1,5 @@
 # Denoising with GAN
+[Paper]() [Video](https://www.youtube.com/watch?v=Yh_Bsoe-Qj4)
 
 ## Introduction
 
