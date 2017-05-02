@@ -56,7 +56,7 @@ We picked random 40 images from pixar movies, added gaussian noise of different 
 
 ## Results
 3D rendering test data:
-<img src="https://github.com/manumathewthomas/CS523Project3/blob/master/result1.PNG" alt="alt text" width="960" height="540">
+<img src="https://github.com/manumathewthomas/CS523Project3/blob/master/result1.PNG" alt="alt text" width="960" height="480">
  
 
 ## Improvements
