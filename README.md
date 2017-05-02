@@ -67,12 +67,14 @@ CT-Scan:
 
 ## Improvements
 
-* Increase the sentence length from 5 to 10.
-* Train multple characters from the show.
-* Make bots chat with each other.
+* Increase the num of iteration to 100K.
+* Train the network for different noises.
+* Make it work on a real-time app.
 
 ## Credits
 
-* [A Neural Conversational Model](http://arxiv.org/abs/1506.05869)
-* [DeepQA repo](https://github.com/Conchylicultor/DeepQA)
-* [seq2seq model RNN](https://www.tensorflow.org/tutorials/seq2seq)
+* [SRGAN](https://arxiv.org/pdf/1609.04802.pdf)
+* [Image De-raining using conditional generative adversarial network](https://arxiv.org/pdf/1701.05957.pdf)
+* [Creating photorealistic images from gameboy camera](http://www.pinchofintelligence.com/photorealistic-neural-network-gameboy/)
+* [CS20SI](cs20si.stanford.edu)
+* [CS231n](https://cs231n.github.io/)
