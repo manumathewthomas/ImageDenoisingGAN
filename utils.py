@@ -2,17 +2,13 @@ import os
 import re
 import sys
 import glob
-import scipy.misc
 from itertools import cycle
 
 import numpy as np
 import tensorflow as tf
-
+import cv2
 
 from libs import vgg16
-
-from PIL import Image
-
 
 LEARNING_RATE = 0.002
 BATCH_SIZE = 5
@@ -31,7 +27,8 @@ ADVERSARIAL_LOSS_FACTOR = 0.5
 PIXEL_LOSS_FACTOR = 1.0
 STYLE_LOSS_FACTOR = 1.0
 SMOOTH_LOSS_FACTOR = 1.0
-metrics_image = scipy.misc.imread(METRICS_SET_DIR+'gt.png', mode='RGB').astype('float32')
+metrics_image = cv2.imread(METRICS_SET_DIR+'gt.png')
+metrics_image = cv2.cvtColor(metrics_image, cv2.COLOR_BGR2RGB).astype('float32')
 
 
 def initialize(sess):
@@ -72,14 +69,14 @@ def load_next_training_batch():
 
 def load_validation():
     filelist = sorted(glob.glob(VALIDATION_SET_DIR + '/*.png'), key=alphanum_key)
-    validation = np.array([np.array(scipy.misc.imread(fname, mode='RGB').astype('float32')) for fname in filelist])
+    validation = np.array([cv2.cvtColor(cv2.imread(fname), cv2.COLOR_BGR2RGB).astype('float32') for fname in filelist])
     npad = ((0, 0), (56, 56), (0, 0), (0, 0))
     validation = np.pad(validation, pad_width=npad, mode='constant', constant_values=0)
     return validation
 
 def training_dataset_init():
     filelist = sorted(glob.glob(TRAINING_SET_DIR + '/*.png'), key=alphanum_key)
-    batch = np.array([np.array(scipy.misc.imread(fname, mode='RGB').astype('float32')) for fname in filelist])
+    batch = np.array([cv2.cvtColor(cv2.imread(fname), cv2.COLOR_BGR2RGB).astype('float32') for fname in filelist])
     batch = split(batch, BATCH_SIZE)
     training_dir_list = get_training_dir_list()
     global pool
@@ -88,26 +85,28 @@ def training_dataset_init():
 
 
 def imsave(filename, image):
-    scipy.misc.imsave(IMG_DIR+filename+'.png', image)
+    # Create Images directory if it doesn't exist
+    if not os.path.exists(IMG_DIR):
+        os.makedirs(IMG_DIR)
+    # Convert RGB to BGR for OpenCV
+    image_bgr = cv2.cvtColor(np.uint8(image), cv2.COLOR_RGB2BGR)
+    cv2.imwrite(IMG_DIR+filename+'.png', image_bgr)
 
 def merge_images(file1, file2):
     """Merge two images into one, displayed side by side
-    :param file1: path to first image file
-    :param file2: path to second image file
-    :return: the merged Image object
+    :param file1: first image array
+    :param file2: second image array
+    :return: the merged image array
     """
-    image1 = Image.fromarray(np.uint8(file1))
-    image2 = Image.fromarray(np.uint8(file2))
-
-    (width1, height1) = image1.size
-    (width2, height2) = image2.size
+    height1, width1 = file1.shape[:2]
+    height2, width2 = file2.shape[:2]
 
     result_width = width1 + width2
     result_height = max(height1, height2)
 
-    result = Image.new('RGB', (result_width, result_height))
-    result.paste(im=image1, box=(0, 0))
-    result.paste(im=image2, box=(width1, 0))
+    result = np.zeros((result_height, result_width, 3), dtype=np.uint8)
+    result[:height1, :width1] = file1
+    result[:height2, width1:width1+width2] = file2
     return result
 
 
@@ -141,9 +140,7 @@ def lrelu(x, leak=0.2, name='lrelu'):
         return f1 * x + f2 * abs(x)
 
 def RGB_TO_BGR(img):
-    img_channel_swap = img[..., ::-1]
-    # img_channel_swap_1 = tf.reverse(img, axis=[-1])
-    return img_channel_swap
+    return cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
 
 def get_pixel_loss(target,prediction):
